@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/users/', include('apps.users.urls')),
     path('api/leagues/', include('apps.leagues.urls')),
     path('api/teams/', include('apps.teams.urls')),
     path('api/players/', include('apps.players.urls')),
@@ -22,6 +23,8 @@ urlpatterns = [
     path('xg/', TemplateView.as_view(template_name='xg_analysis.html'), name='xg_analysis'),
     path('scouting/', TemplateView.as_view(template_name='scouting.html'), name='scouting'),
     path('compare/', TemplateView.as_view(template_name='player_comparison.html'), name='player_comparison'),
+    path('tactics/', TemplateView.as_view(template_name='tactics.html'), name='tactics'),
+    path('trends/', TemplateView.as_view(template_name='trends.html'), name='trends'),
 ]
 
 if settings.DEBUG:
