@@ -1,0 +1,101 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.card-body h5 {
+    color: #28a745;
+    font-size: 2.5rem;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+footer {
+    margin-top: auto;
+}
+
+canvas {
+    max-height: 300px;
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.stat-card {
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.api-endpoint {
+    background-color: #f8f9fa;
+    border-left: 4px solid #28a745;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.api-endpoint h5 {
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.badge {
+    font-size: 0.8em;
+}
+
+.badge-get {
+    background-color: #28a745;
+}
+
+.badge-post {
+    background-color: #007bff;
+}
+
+.badge-put {
+    background-color: #ffc107;
+}
+
+.badge-delete {
+    background-color: #dc3545;
+}

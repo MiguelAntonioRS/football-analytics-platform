@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Football Analytics Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="/">Football Analytics Platform</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard/">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api/">API Docs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h1 class="mb-4">Documentación de la API</h1>
+
+        <div class="alert alert-info">
+            <strong>Base URL:</strong> <code>http://localhost:8000/api/</code>
+        </div>
+
+        <h2 class="mt-5 mb-3">Gestión de Ligas</h2>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/leagues/</h5>
+            <p>Lista todas las ligas. Soporta paginación, búsqueda y ordenamiento.</p>
+            <p><strong>Parámetros:</strong></p>
+            <ul>
+                <li><code>search</code> - Buscar por nombre, país o temporada</li>
+                <li><code>ordering</code> - Ordenar por nombre, país, temporada o fecha</li>
+                <li><code>page</code> - Número de página</li>
+            </ul>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-post">POST</span> /api/leagues/</h5>
+            <p>Crea una nueva liga.</p>
+            <p><strong>Campos requeridos:</strong> name, country, season</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/leagues/{id}/</h5>
+            <p>Obtiene los detalles de una liga específica.</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-put">PUT</span> /api/leagues/{id}/</h5>
+            <p>Actualiza una liga existente.</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-delete">DELETE</span> /api/leagues/{id}/</h5>
+            <p>Elimina una liga.</p>
+        </div>
+
+        <h2 class="mt-5 mb-3">Gestión de Equipos</h2>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/teams/</h5>
+            <p>Lista todos los equipos. Soporta búsqueda y ordenamiento.</p>
+            <p><strong>Parámetros:</strong></p>
+            <ul>
+                <li><code>search</code> - Buscar por nombre, estadio o entrenador</li>
+                <li><code>ordering</code> - Ordenar por nombre o fecha</li>
+            </ul>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-post">POST</span> /api/teams/</h5>
+            <p>Crea un nuevo equipo.</p>
+            <p><strong>Campos requeridos:</strong> name, league, stadium, coach</p>
+        </div>
+
+        <h2 class="mt-5 mb-3">Gestión de Jugadores</h2>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/players/</h5>
+            <p>Lista todos los jugadores.</p>
+            <p><strong>Parámetros:</strong></p>
+            <ul>
+                <li><code>team</code> - Filtrar por equipo</li>
+                <li><code>league</code> - Filtrar por liga</li>
+                <li><code>position</code> - Filtrar por posición</li>
+                <li><code>is_active</code> - Filtrar por estado activo</li>
+            </ul>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-post">POST</span> /api/players/</h5>
+            <p>Crea un nuevo jugador.</p>
+            <p><strong>Campos requeridos:</strong> name, team, position, nationality</p>
+        </div>
+
+        <h2 class="mt-5 mb-3">Gestión de Partidos</h2>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/matches/</h5>
+            <p>Lista todos los partidos.</p>
+            <p><strong>Parámetros:</strong></p>
+            <ul>
+                <li><code>league</code> - Filtrar por liga</li>
+                <li><code>team</code> - Filtrar por equipo</li>
+                <li><code>status</code> - Filtrar por estado</li>
+                <li><code>from_date</code> - Fecha inicial</li>
+                <li><code>to_date</code> - Fecha final</li>
+            </ul>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-post">POST</span> /api/matches/</h5>
+            <p>Crea un nuevo partido.</p>
+            <p><strong>Campos requeridos:</strong> league, home_team, away_team, date</p>
+        </div>
+
+        <h2 class="mt-5 mb-3">Eventos del Partido</h2>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/matches/events/</h5>
+            <p>Lista todos los eventos.</p>
+            <p><strong>Parámetros:</strong></p>
+            <ul>
+                <li><code>match</code> - Filtrar por partido</li>
+                <li><code>event_type</code> - Filtrar por tipo (goal, assist, shot, etc.)</li>
+                <li><code>player</code> - Filtrar por jugador</li>
+                <li><code>team</code> - Filtrar por equipo</li>
+            </ul>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-post">POST</span> /api/matches/events/</h5>
+            <p>Crea un nuevo evento.</p>
+            <p><strong>Campos requeridos:</strong> match, minute, event_type, player, team</p>
+            <p><strong>Tipos de evento:</strong></p>
+            <ul>
+                <li><code>goal</code> - Gol</li>
+                <li><code>assist</code> - Asistencia</li>
+                <li><code>shot</code> - Tiro</li>
+                <li><code>pass</code> - Pase</li>
+                <li><code>foul</code> - Falta</li>
+                <li><code>yellow_card</code> - Tarjeta Amarilla</li>
+                <li><code>red_card</code> - Tarjeta Roja</li>
+                <li><code>tackle</code> - Entrada</li>
+            </ul>
+        </div>
+
+        <h2 class="mt-5 mb-3">Análisis y Estadísticas</h2>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/analytics/dashboard/</h5>
+            <p>Obtiene datos del dashboard: resumen general, goleadores, asistentes y partidos recientes.</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/analytics/teams/{id}/</h5>
+            <p>Obtiene estadísticas detalladas de un equipo.</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/analytics/players/{id}/</h5>
+            <p>Obtiene estadísticas detalladas de un jugador.</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/analytics/scorers/</h5>
+            <p>Obtiene ranking de goleadores.</p>
+            <p><strong>Parámetros:</strong></p>
+            <ul>
+                <li><code>limit</code> - Número de resultados (default: 10)</li>
+                <li><code>league</code> - Filtrar por liga</li>
+                <li><code>season</code> - Filtrar por temporada</li>
+            </ul>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/analytics/assists/</h5>
+            <p>Obtiene ranking de asistentes.</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /api/analytics/leagues/{id}/</h5>
+            <p>Obtiene estadísticas de una liga.</p>
+        </div>
+
+        <h2 class="mt-5 mb-3">Reportes</h2>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /reports/team-comparison/</h5>
+            <p>Compara dos equipos.</p>
+            <p><strong>Parámetros:</strong></p>
+            <ul>
+                <li><code>team1</code> - ID del primer equipo</li>
+                <li><code>team2</code> - ID del segundo equipo</li>
+            </ul>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /reports/player-comparison/</h5>
+            <p>Compara dos jugadores.</p>
+            <p><strong>Parámetros:</strong></p>
+            <ul>
+                <li><code>player1</code> - ID del primer jugador</li>
+                <li><code>player2</code> - ID del segundo jugador</li>
+            </ul>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /reports/standings/{league_id}/</h5>
+            <p>Obtiene la tabla de clasificación de una liga.</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /reports/goals-by-player/</h5>
+            <p>Obtiene ranking de goles por jugador.</p>
+        </div>
+        <div class="api-endpoint">
+            <h5><span class="badge badge-get">GET</span> /reports/goals-by-team/</h5>
+            <p>Obtiene ranking de goles por equipo.</p>
+        </div>
+
+        <h2 class="mt-5 mb-3">Ejemplos de Uso</h2>
+        <div class="api-endpoint">
+            <h5>cURL</h5>
+            <pre class="bg-dark text-white p-3 rounded"><code># Listar todas las ligas
+curl -X GET http://localhost:8000/api/leagues/
+
+# Crear una liga
+curl -X POST http://localhost:8000/api/leagues/ \
+  -H "Content-Type: application/json" \
+  -d '{"name": "La Liga", "country": "España", "season": "2024-2025"}'
+
+# Listar partidos de una liga
+curl -X GET "http://localhost:8000/api/matches/?league=1"
+
+# Obtener top goleadores
+curl -X GET "http://localhost:8000/api/analytics/scorers/?limit=5"</code></pre>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2024 Football Analytics Platform. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
