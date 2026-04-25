@@ -1,249 +1,173 @@
 # Football Analytics Platform
 
-Plataforma profesional de análisis de fútbol construida con Django y Django REST Framework.
+Plataforma profesional de análisis de fútbol con Django y Django REST Framework.
 
 ## Características
 
-- Gestión de ligas, equipos y jugadores
-- Registro de partidos y eventos
-- Estadísticas automáticas (equipos y jugadores)
-- Dashboard con visualizaciones Chart.js
-- API REST completa
-- Panel de administración Django
+### Gestión de Datos
+- **Ligas**: Crear y gestionar ligas con temporadas
+- **Equipos**: Registrar equipos con estadísticas
+- **Jugadores**: Gestionar jugadores con datos biométricos
+- **Partidos**: Registrar partidos y eventos
+- **Eventos Avanzados**: Tiros (shots) y pases (passes)
 
-## Requisitos
+### Análisis Estadístico
+- **Expected Goals (xG)**: Modelo predictivo de probabilidades de gol
+- **Redes de Pases**: Visualización de conexiones entre jugadores
+- **Predicción Poisson**: Predicción de resultados basada en estadísticas
+- **Ranking de Jugadores**: Sistema de impacto score
+- **Forma de Equipos**: Últimos 5 partidos
 
-- Python 3.10+
-- pip
+### Sistema de Scouting
+- Búsqueda avanzada de jugadores
+- Filtros por edad, goles, asistencias, xG
+- Comparador de jugadores con gráficos radar
+
+### Visualización
+- Mapas de tiros con Plotly
+- Dashboard con Chart.js
+- Comparación con gráficos de barras y radar
+
+## Tecnologías
+
+| Categoría | Tecnología |
+|-----------|------------|
+| Backend | Django 5+, DRF |
+| Base de datos | SQLite / PostgreSQL |
+| Análisis | Pandas, NumPy, Scikit-learn |
+| Visualización | Chart.js, Plotly |
+| Gráfos | NetworkX |
 
 ## Instalación
 
-### 1. Clonar o descargar el proyecto
-
 ```bash
 cd football-analytics-platform
-```
 
-### 2. Crear entorno virtual (recomendado)
-
-```bash
 python -m venv venv
+.\venv\Scripts\activate
 
-# Windows
-venv\Scripts\activate
-
-# Linux/Mac
-source venv/bin/activate
-```
-
-### 3. Instalar dependencias
-
-```bash
 pip install -r requirements.txt
-```
 
-### 4. Configurar variables de entorno
-
-Copiar `.env.example` a `.env` y configurar si es necesario:
-
-```bash
-copy .env.example .env
-```
-
-Para desarrollo local, SQLite se usa por defecto. Para usar PostgreSQL, descomenta las líneas correspondientes en `.env`.
-
-### 5. Crear la base de datos y aplicar migraciones
-
-```bash
 python manage.py migrate
-```
-
-### 6. Crear superusuario (opcional)
-
-```bash
-python manage.py createsuperuser
-```
-
-### 7. Ejecutar el servidor
-
-```bash
+python manage.py import_sample_data
 python manage.py runserver
 ```
 
-El servidor estará disponible en: http://localhost:8000/
-
-## URLs de la Aplicación
+## URLs Disponibles
 
 | URL | Descripción |
 |-----|-------------|
-| http://localhost:8000/ | Página principal con dashboard |
-| http://localhost:8000/dashboard/ | Dashboard completo con gráficos |
-| http://localhost:8000/admin/ | Panel de administración |
-| http://localhost:8000/api/ | Documentación de la API |
+| `/` | Página principal |
+| `/dashboard/` | Dashboard con gráficos |
+| `/admin/` | Panel de administración |
+| `/xg/` | Análisis xG |
+| `/scouting/` | Sistema de scouting |
+| `/compare/` | Comparador de jugadores |
+| `/api-docs/` | Documentación API |
 
-## API REST Endpoints
+## API Endpoints
 
-### Ligas
-- `GET /api/leagues/` - Listar ligas
-- `POST /api/leagues/` - Crear liga
-- `GET /api/leagues/{id}/` - Detalle de liga
-- `PUT /api/leagues/{id}/` - Actualizar liga
-- `DELETE /api/leagues/{id}/` - Eliminar liga
-
-### Equipos
-- `GET /api/teams/` - Listar equipos
-- `POST /api/teams/` - Crear equipo
-- `GET /api/teams/{id}/` - Detalle de equipo
-
-### Jugadores
-- `GET /api/players/` - Listar jugadores
-- `POST /api/players/` - Crear jugador
-- `GET /api/players/{id}/` - Detalle de jugador
-
-### Partidos
-- `GET /api/matches/` - Listar partidos
-- `POST /api/matches/` - Crear partido
-- `GET /api/matches/{id}/` - Detalle de partido
-
-### Eventos
-- `GET /api/matches/events/` - Listar eventos
-- `POST /api/matches/events/` - Crear evento
+### Datos Básicos
+- `GET /api/leagues/` - Lista de ligas
+- `GET /api/teams/` - Lista de equipos
+- `GET /api/players/` - Lista de jugadores
+- `GET /api/matches/` - Lista de partidos
+- `GET /api/events/shots/` - Lista de tiros
+- `GET /api/events/passes/` - Lista de pases
 
 ### Análisis
-- `GET /api/analytics/dashboard/` - Datos del dashboard
-- `GET /api/analytics/teams/{id}/` - Estadísticas de equipo
-- `GET /api/analytics/players/{id}/` - Estadísticas de jugador
 - `GET /api/analytics/scorers/` - Top goleadores
 - `GET /api/analytics/assists/` - Top asistentes
-- `GET /api/analytics/leagues/{id}/` - Estadísticas de liga
+- `GET /api/analytics/xg/` - Estadísticas xG
+- `GET /api/analytics/ranking/` - Ranking de impacto
+- `GET /api/analytics/scouting/` - Búsqueda de jugadores
+- `GET /api/analytics/pass-network/{match_id}/{team_id}/` - Red de pases
 
 ### Reportes
 - `GET /reports/team-comparison/` - Comparar equipos
 - `GET /reports/player-comparison/` - Comparar jugadores
 - `GET /reports/standings/{league_id}/` - Tabla de clasificación
-- `GET /reports/goals-by-player/` - Goles por jugador
-- `GET /reports/goals-by-team/` - Goles por equipo
 
-## Tipos de Eventos
+## Modelos Principales
 
-| Tipo | Descripción |
-|------|-------------|
-| goal | Gol |
-| assist | Asistencia |
-| shot | Tiro |
-| pass | Pase |
-| foul | Falta |
-| yellow_card | Tarjeta Amarilla |
-| red_card | Tarjeta Roja |
-| tackle | Entrada |
+### League
+- name, country, season
 
-## Posiciones de Jugadores
+### Team
+- name, league, stadium, coach
 
-| Código | Descripción |
-|--------|-------------|
-| goalkeeper | Portero |
-| defender | Defensa |
-| midfielder | Centrocampista |
-| forward | Delantero |
+### Player
+- name, team, position, nationality, age
 
-## Estados de Partido
+### Match
+- home_team, away_team, date, scores
 
-| Estado | Descripción |
-|--------|-------------|
-| scheduled | Programado |
-| in_progress | En Progreso |
-| finished | Finalizado |
-| cancelled | Cancelado |
+### MatchEvent
+- match, minute, event_type, player, team
 
-## Base de Datos
+### Shot (evento avanzado)
+- match, player, coordinates, distance, angle, xg_value
 
-### SQLite (Desarrollo local)
-Se usa por defecto. No requiere configuración adicional.
+### Pass (evento avanzado)
+- from_player, to_player, coordinates, distance, successful
 
-### PostgreSQL (Producción)
-Configurar las variables de entorno:
+## Comandos de Gestión
+
 ```bash
-DB_ENGINE=django.db.backends.postgresql
-DB_NAME=football_analytics
-DB_USER=postgres
-DB_PASSWORD=tu-contraseña
-DB_HOST=localhost
-DB_PORT=5432
+python manage.py import_sample_data
 ```
 
 ## Estructura del Proyecto
 
 ```
-football-analytics-platform/
-├── apps/
-│   ├── leagues/      # Gestión de ligas
-│   ├── teams/        # Gestión de equipos
-│   ├── players/      # Gestión de jugadores
-│   ├── matches/      # Gestión de partidos y eventos
-│   ├── analytics/    # Estadísticas y análisis
-│   └── reports/      # Reportes y comparaciones
-├── config/           # Configuración del proyecto
-├── static/           # Archivos estáticos (CSS, JS)
-├── templates/        # Plantillas HTML
-├── manage.py         # Script de gestión Django
-├── requirements.txt  # Dependencias Python
-└── README.md         # Este archivo
+apps/
+├── leagues/      # Gestión de ligas
+├── teams/       # Gestión de equipos
+├── players/     # Gestión de jugadores
+├── matches/     # Partidos y eventos
+├── events/      # Tiros y pases
+├── analytics/   # Estadísticas y análisis
+│   ├── services.py    # Lógica de negocio
+│   └── views_advanced.py  # Vistas avanzadas
+└── reports/     # Reportes
 ```
 
-## Ejemplo de Uso de la API
+## Expected Goals (xG)
 
-### Crear una Liga
-```bash
-curl -X POST http://localhost:8000/api/leagues/ \
-  -H "Content-Type: application/json" \
-  -d '{"name": "La Liga", "country": "España", "season": "2024-2025"}'
+El sistema calcula la probabilidad de gol de cada tiro usando:
+- Distancia a portería
+- Ángulo del tiro
+- Coordenadas en el campo
+
+Fórmula:
+```
+xG = 1 / (1 + exp(-(-1.5 + 0.05 * (45 - distance) + 0.05 * angle)))
 ```
 
-### Crear un Equipo
-```bash
-curl -X POST http://localhost:8000/api/teams/ \
-  -H "Content-Type: application/json" \
-  -d '{"name": "FC Barcelona", "league": 1, "stadium": "Camp Nou", "coach": "Xavi Hernandez"}'
+## Sistema de Ranking
+
+Score de impacto:
+```
+impact_score = (goles * 4) + (asistencias * 3) + (pases_clave * 2) + (entradas * 1)
 ```
 
-### Crear un Jugador
-```bash
-curl -X POST http://localhost:8000/api/players/ \
-  -H "Content-Type: application/json" \
-  -d '{"name": "Robert Lewandowski", "team": 1, "position": "forward", "nationality": "Polonia", "number": 9}'
+## Predicción Poisson
+
+Predice resultados basándose en:
+- Fuerza de ataque/defensa de equipos
+- Estadísticas históricas de goles
+- Distribución de Poisson
+
+## Requisitos
+
 ```
-
-### Crear un Partido
-```bash
-curl -X POST http://localhost:8000/api/matches/ \
-  -H "Content-Type: application/json" \
-  -d '{"league": 1, "home_team": 1, "away_team": 2, "date": "2024-09-15T20:00:00Z"}'
+Django>=5.0
+djangorestframework>=3.14
+django-filter>=23.0
+numpy>=1.24
+pandas>=2.0
+scikit-learn>=1.3
+networkx>=3.0
+matplotlib>=3.7
+plotly>=5.18
 ```
-
-### Registrar un Gol
-```bash
-curl -X POST http://localhost:8000/api/matches/events/ \
-  -H "Content-Type: application/json" \
-  -d '{"match": 1, "minute": 23, "event_type": "goal", "player": 1, "team": 1}'
-```
-
-## Panel de Administración
-
-Accede a http://localhost:8000/admin/ con tu superusuario para:
-
-- Gestionar ligas, equipos y jugadores
-- Registrar partidos y eventos
-- Ver estadísticas básicas
-- Administrar usuarios y permisos
-
-## Tecnologías
-
-- **Backend**: Django 4.2, Django REST Framework
-- **Base de datos**: SQLite (desarrollo), PostgreSQL (producción)
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Visualización**: Chart.js 4.4
-- **UI Framework**: Bootstrap 5.3
-
-## Licencia
-
-Este proyecto es software libre y puede ser utilizado para cualquier propósito.

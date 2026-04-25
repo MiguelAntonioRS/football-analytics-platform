@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'apps.teams',
     'apps.players',
     'apps.matches',
+    'apps.events',
     'apps.analytics',
     'apps.reports',
 ]

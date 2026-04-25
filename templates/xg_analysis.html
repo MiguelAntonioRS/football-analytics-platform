@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xG Analysis - Football Analytics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="/">Football Analytics Platform</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dashboard/">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/xg/">xG Analysis</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/scouting/">Scouting</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/compare/">Comparar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/">Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h1 class="mb-4">Análisis de Expected Goals (xG)</h1>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">Filtros</div>
+                    <div class="card-body">
+                        <label>Partido</label>
+                        <select class="form-select mb-3" id="matchSelect">
+                            <option value="">Seleccionar partido</option>
+                        </select>
+                        <button class="btn btn-success w-100" onclick="loadShotMap()">Ver Mapa de Tiros</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-success text-white">Estadísticas xG</div>
+                    <div class="card-body">
+                        <div id="xgStats"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-success text-white">Mapa de Tiros</div>
+                    <div class="card-body">
+                        <div id="shotMap" style="height: 500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">Top Jugadores por xG</div>
+                    <div class="card-body">
+                        <canvas id="topXgPlayersChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">xG vs Goles Reales</div>
+                    <div class="card-body">
+                        <canvas id="xgComparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/xg_analysis.js"></script>
+</body>
+</html>
