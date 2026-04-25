@@ -1,173 +1,163 @@
-# Football Analytics Platform
+# ⚽ Football Analytics Platform
 
 Plataforma profesional de análisis de fútbol con Django y Django REST Framework.
 
-## Características
+## 🚀 Características Completas
 
 ### Gestión de Datos
-- **Ligas**: Crear y gestionar ligas con temporadas
-- **Equipos**: Registrar equipos con estadísticas
-- **Jugadores**: Gestionar jugadores con datos biométricos
-- **Partidos**: Registrar partidos y eventos
-- **Eventos Avanzados**: Tiros (shots) y pases (passes)
+- [x] Gestión de ligas, equipos y jugadores
+- [x] Registro de partidos y eventos
+- [x] Eventos avanzados (tiros y pases)
+- [x] Sistema de favoritos
 
 ### Análisis Estadístico
-- **Expected Goals (xG)**: Modelo predictivo de probabilidades de gol
-- **Redes de Pases**: Visualización de conexiones entre jugadores
-- **Predicción Poisson**: Predicción de resultados basada en estadísticas
-- **Ranking de Jugadores**: Sistema de impacto score
-- **Forma de Equipos**: Últimos 5 partidos
+- [x] **Expected Goals (xG)**: Modelo predictivo de probabilidades de gol
+- [x] **Redes de Pases**: Visualización de conexiones entre jugadores
+- [x] **Predicción Poisson**: Predicción de resultados basada en estadísticas
+- [x] **Ranking de Jugadores**: Sistema de impacto score
+- [x] **Análisis Táctico**: Heatmaps, formaciones, zonas de juego
+- [x] **Tendencias Temporales**: Evolución de equipos y jugadores
 
-### Sistema de Scouting
-- Búsqueda avanzada de jugadores
-- Filtros por edad, goles, asistencias, xG
-- Comparador de jugadores con gráficos radar
+### Gamificación (Fase 5)
+- [x] **Fantasy League**: Crea tu equipo fantasy con presupuesto
+- [x] **Sistema de Predicciones**: Pronostica resultados de partidos
+- [x] **Logros y Badges**: Sistema de recompensas por logros
+- [x] **Leaderboards**: Rankings semanales/mensuales/todas lastemps
+- [x] **Quizzes**: Trivia de fútbol con puntos
 
-### Visualización
-- Mapas de tiros con Plotly
-- Dashboard con Chart.js
-- Comparación con gráficos de barras y radar
+### Comunidad (Fase 6)
+- [x] **Blog de Análisis**: Artículos tácticos y estadísticos
+- [x] **Chat en Vivo**: Comunidad de usuarios
+- [x] **Sistema de Suscripciones**: Planes Free/Basic/Premium
 
-## Tecnologías
+### Autenticación (Fase 1)
+- [x] **JWT Authentication**: Registro y login con tokens
+- [x] **Perfiles de Usuario**: Información personalizada
+- [x] **Notificaciones**: Sistema de alertas
+
+### UX/UI (Fase 4)
+- [x] **Dark/Light Mode**: Cambio de tema
+- [x] **PWA**: App instalable
+- [x] **Responsive Design**: Adaptable a móvil
+- [x] **Animaciones**: Transiciones suaves
+
+## 📦 Tecnologías
 
 | Categoría | Tecnología |
 |-----------|------------|
 | Backend | Django 5+, DRF |
-| Base de datos | SQLite / PostgreSQL |
-| Análisis | Pandas, NumPy, Scikit-learn |
+| Auth | JWT (SimpleJWT) |
+| Base de datos | SQLite (dev), PostgreSQL (prod) |
 | Visualización | Chart.js, Plotly |
-| Gráfos | NetworkX |
+| Frontend | HTML5, CSS3, JavaScript |
 
-## Instalación
+## 🚀 Instalación
 
 ```bash
 cd football-analytics-platform
 
-python -m venv venv
-.\venv\Scripts\activate
-
 pip install -r requirements.txt
 
 python manage.py migrate
-python manage.py import_sample_data
+
+python manage.py import_matches --demo
+
 python manage.py runserver
 ```
 
-## URLs Disponibles
+## 🌐 URLs Disponibles
 
+### Páginas
 | URL | Descripción |
 |-----|-------------|
 | `/` | Página principal |
 | `/dashboard/` | Dashboard con gráficos |
-| `/admin/` | Panel de administración |
-| `/xg/` | Análisis xG |
+| `/xg/` | Análisis xG con mapas de calor |
 | `/scouting/` | Sistema de scouting |
 | `/compare/` | Comparador de jugadores |
-| `/api-docs/` | Documentación API |
+| `/tactics/` | Análisis táctico |
+| `/trends/` | Tendencias temporales |
+| `/fantasy/` | Fantasy League |
+| `/blog/` | Blog y comunidad |
+| `/admin/` | Panel de administración |
 
-## API Endpoints
+### API Endpoints
+| Endpoint | Descripción |
+|----------|-------------|
+| `POST /api/users/auth/register/` | Registro de usuario |
+| `POST /api/users/auth/login/` | Login JWT |
+| `GET /api/leagues/` | Lista de ligas |
+| `GET /api/teams/` | Lista de equipos |
+| `GET /api/players/` | Lista de jugadores |
+| `GET /api/matches/` | Lista de partidos |
+| `GET /api/events/shots/` | Tiros con xG |
+| `GET /api/events/passes/` | Pases entre jugadores |
+| `GET /api/analytics/dashboard/` | Datos del dashboard |
+| `GET /api/analytics/scorers/` | Top goleadores |
+| `GET /api/analytics/xg/` | Estadísticas xG |
+| `GET /api/fantasy/predictions/` | Predicciones |
+| `GET /api/fantasy/leaderboard/` | Clasificación |
+| `GET /api/fantasy/achievements/` | Logros |
+| `GET /api/blog/articles/` | Artículos del blog |
+| `GET /api/blog/chat/` | Mensajes del chat |
 
-### Datos Básicos
-- `GET /api/leagues/` - Lista de ligas
-- `GET /api/teams/` - Lista de equipos
-- `GET /api/players/` - Lista de jugadores
-- `GET /api/matches/` - Lista de partidos
-- `GET /api/events/shots/` - Lista de tiros
-- `GET /api/events/passes/` - Lista de pases
+## 🏗 Estructura del Proyecto
 
-### Análisis
-- `GET /api/analytics/scorers/` - Top goleadores
-- `GET /api/analytics/assists/` - Top asistentes
-- `GET /api/analytics/xg/` - Estadísticas xG
-- `GET /api/analytics/ranking/` - Ranking de impacto
-- `GET /api/analytics/scouting/` - Búsqueda de jugadores
-- `GET /api/analytics/pass-network/{match_id}/{team_id}/` - Red de pases
+```
+football-analytics-platform/
+├── apps/
+│   ├── leagues/      # Gestión de ligas
+│   ├── teams/       # Gestión de equipos
+│   ├── players/     # Gestión de jugadores
+│   ├── matches/     # Partidos y eventos
+│   ├── events/       # Tiros y pases
+│   ├── analytics/     # Estadísticas y servicios
+│   ├── reports/      # Reportes
+│   ├── users/        # Usuarios y auth
+│   ├── fantasy/       # Fantasy League
+│   └── blog/          # Blog y comunidad
+├── config/           # Configuración Django
+├── static/           # CSS, JS, icons
+├── templates/        # Plantillas HTML
+└── manage.py
+```
 
-### Reportes
-- `GET /reports/team-comparison/` - Comparar equipos
-- `GET /reports/player-comparison/` - Comparar jugadores
-- `GET /reports/standings/{league_id}/` - Tabla de clasificación
+## 📊 Modelos Principales
 
-## Modelos Principales
+| Modelo | Descripción |
+|--------|-------------|
+| League | Liga con nombre, país y temporada |
+| Team | Equipo con liga, estadio y entrenador |
+| Player | Jugador con datos biométricos |
+| Match | Partido con marcador |
+| MatchEvent | Eventos (gol, asistencia, falta, etc.) |
+| Shot | Tiro con coordenadas y xG |
+| Pass | Pase entre jugadores |
+| Prediction | Predicción de resultado |
+| Achievement | Logro desbloqueable |
 
-### League
-- name, country, season
-
-### Team
-- name, league, stadium, coach
-
-### Player
-- name, team, position, nationality, age
-
-### Match
-- home_team, away_team, date, scores
-
-### MatchEvent
-- match, minute, event_type, player, team
-
-### Shot (evento avanzado)
-- match, player, coordinates, distance, angle, xg_value
-
-### Pass (evento avanzado)
-- from_player, to_player, coordinates, distance, successful
-
-## Comandos de Gestión
+## 📈 Comandos de Gestión
 
 ```bash
-python manage.py import_sample_data
+# Cargar datos de prueba
+python manage.py import_matches --demo
+
+# Calcular valores de mercado
+python manage.py calculate_values
+
+# Crear superusuario
+python manage.py create_superuser
 ```
 
-## Estructura del Proyecto
+## 🎯 Roadmap Completado
 
-```
-apps/
-├── leagues/      # Gestión de ligas
-├── teams/       # Gestión de equipos
-├── players/     # Gestión de jugadores
-├── matches/     # Partidos y eventos
-├── events/      # Tiros y pases
-├── analytics/   # Estadísticas y análisis
-│   ├── services.py    # Lógica de negocio
-│   └── views_advanced.py  # Vistas avanzadas
-└── reports/     # Reportes
-```
+- [x] Fase 1: Autenticación y Usuarios
+- [x] Fase 2: Análisis Avanzado
+- [x] Fase 3: Scrapers y APIs
+- [x] Fase 4: UX/UI Profesional
+- [x] Fase 5: Gamificación
+- [x] Fase 6: Blog y Comunidad
 
-## Expected Goals (xG)
+## 📝 Licencia
 
-El sistema calcula la probabilidad de gol de cada tiro usando:
-- Distancia a portería
-- Ángulo del tiro
-- Coordenadas en el campo
-
-Fórmula:
-```
-xG = 1 / (1 + exp(-(-1.5 + 0.05 * (45 - distance) + 0.05 * angle)))
-```
-
-## Sistema de Ranking
-
-Score de impacto:
-```
-impact_score = (goles * 4) + (asistencias * 3) + (pases_clave * 2) + (entradas * 1)
-```
-
-## Predicción Poisson
-
-Predice resultados basándose en:
-- Fuerza de ataque/defensa de equipos
-- Estadísticas históricas de goles
-- Distribución de Poisson
-
-## Requisitos
-
-```
-Django>=5.0
-djangorestframework>=3.14
-django-filter>=23.0
-numpy>=1.24
-pandas>=2.0
-scikit-learn>=1.3
-networkx>=3.0
-matplotlib>=3.7
-plotly>=5.18
-```
+MIT License - Libre para uso comercial y personal.

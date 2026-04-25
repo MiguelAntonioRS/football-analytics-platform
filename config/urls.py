@@ -16,6 +16,8 @@ urlpatterns = [
     path('api/matches/', include('apps.matches.urls')),
     path('api/events/', include('apps.events.urls')),
     path('api/analytics/', include('apps.analytics.urls')),
+    path('api/fantasy/', include('apps.fantasy.urls')),
+    path('api/blog/', include('apps.blog.urls')),
     path('reports/', include('apps.reports.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('dashboard/', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'),
@@ -25,6 +27,8 @@ urlpatterns = [
     path('compare/', TemplateView.as_view(template_name='player_comparison.html'), name='player_comparison'),
     path('tactics/', TemplateView.as_view(template_name='tactics.html'), name='tactics'),
     path('trends/', TemplateView.as_view(template_name='trends.html'), name='trends'),
+    path('fantasy/', TemplateView.as_view(template_name='fantasy.html'), name='fantasy'),
+    path('blog/', TemplateView.as_view(template_name='blog.html'), name='blog'),
 ]
 
 if settings.DEBUG:

@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'apps.analytics',
     'apps.reports',
     'apps.users',
+    'apps.fantasy',
+    'apps.blog',
 ]
 
 AUTH_USER_MODEL = 'users.User'
