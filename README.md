@@ -12,7 +12,7 @@ Plataforma profesional de análisis de fútbol con Django y Django REST Framewor
 
 ### Análisis Estadístico
 - [x] **Expected Goals (xG)**: Modelo predictivo de probabilidades de gol
-- [x] **Redes de Pases**: Visualización de conexiones entre jugadores
+- [x] **Redes de Pases**: Visualización de conexiones entre jugadores 
 - [x] **Predicción Poisson**: Predicción de resultados basada en estadísticas
 - [x] **Ranking de Jugadores**: Sistema de impacto score
 - [x] **Análisis Táctico**: Heatmaps, formaciones, zonas de juego
