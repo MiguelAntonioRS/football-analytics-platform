@@ -3,6 +3,7 @@ let topAssistsChart = null;
 
 async function loadDashboardData() {
     try {
+        // Load summary data
         const response = await fetch('/api/analytics/dashboard/');
         const data = await response.json();
 
@@ -14,14 +15,60 @@ async function loadDashboardData() {
         renderTopScorersChart(data.top_scorers);
         renderTopAssistsChart(data.top_assists);
         renderRecentMatches(data.recent_matches);
+        
+        // Load standings
+        loadStandings();
     } catch (error) {
         console.error('Error loading dashboard data:', error);
     }
 }
 
+async function loadStandings() {
+    try {
+        const response = await fetch('/api/analytics/standings/1/');
+        const data = await response.json();
+        renderStandings(data.standings);
+    } catch (error) {
+        console.error('Error loading standings:', error);
+        document.getElementById('standingsBody').innerHTML = 
+            '<tr><td colspan="10" class="text-center text-danger">Error al cargar</td></tr>';
+    }
+}
+
+function renderStandings(standings) {
+    const tbody = document.getElementById('standingsBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    standings.forEach(team => {
+        const row = document.createElement('tr');
+        
+        let posClass = '';
+        if (team.position <= 4) posClass = 'table-success';
+        else if (team.position <= 6) posClass = 'table-info';
+        else if (team.position >= 18) posClass = 'table-danger';
+        
+        row.className = posClass;
+        row.innerHTML = `
+            <td><strong>${team.position}</strong></td>
+            <td>${team.team}</td>
+            <td>${team.played}</td>
+            <td>${team.won}</td>
+            <td>${team.drawn}</td>
+            <td>${team.lost}</td>
+            <td>${team.goals_for}</td>
+            <td>${team.goals_against}</td>
+            <td>${team.goal_difference > 0 ? '+' + team.goal_difference : team.goal_difference}</td>
+            <td><strong>${team.points}</strong></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
 function renderTopScorersChart(scorers) {
-    const ctx = document.getElementById('topScorersChart').getContext('2d');
+    const ctx = document.getElementById('topScorersChart');
     if (!ctx) return;
+    ctx = ctx.getContext('2d');
 
     if (topScorersChart) topScorersChart.destroy();
 
@@ -42,15 +89,16 @@ function renderTopScorersChart(scorers) {
         },
         options: {
             responsive: true,
+            indexAxis: 'y',
             plugins: {
                 legend: { display: false }
             },
             scales: {
-                y: {
+                x: {
                     beginAtZero: true,
                     ticks: { color: textColor, stepSize: 1 }
                 },
-                x: {
+                y: {
                     ticks: { color: textColor }
                 }
             }
@@ -59,8 +107,9 @@ function renderTopScorersChart(scorers) {
 }
 
 function renderTopAssistsChart(assists) {
-    const ctx = document.getElementById('topAssistsChart').getContext('2d');
+    const ctx = document.getElementById('topAssistsChart');
     if (!ctx) return;
+    ctx = ctx.getContext('2d');
 
     if (topAssistsChart) topAssistsChart.destroy();
 
@@ -81,15 +130,16 @@ function renderTopAssistsChart(assists) {
         },
         options: {
             responsive: true,
+            indexAxis: 'y',
             plugins: {
                 legend: { display: false }
             },
             scales: {
-                y: {
+                x: {
                     beginAtZero: true,
                     ticks: { color: textColor, stepSize: 1 }
                 },
-                x: {
+                y: {
                     ticks: { color: textColor }
                 }
             }
