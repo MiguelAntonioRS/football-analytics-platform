@@ -18,7 +18,7 @@ Plataforma profesional de análisis de fútbol con Django y Django REST Framewor
 - [x] **Análisis Táctico**: Heatmaps, formaciones, zonas de juego
 - [x] **Tendencias Temporales**: Evolución de equipos y jugadores
 
-### Gamificación (Fase 5)
+### Gamificación (Fase 5) 
 - [x] **Fantasy League**: Crea tu equipo fantasy con presupuesto
 - [x] **Sistema de Predicciones**: Pronostica resultados de partidos
 - [x] **Logros y Badges**: Sistema de recompensas por logros
