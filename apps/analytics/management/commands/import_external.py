@@ -18,7 +18,7 @@ class Command(BaseCommand):
         limit = options['limit']
 
         if source == 'demo':
-            self.stdout.write(self.style.WARNING('Use: python manage.py import_matches --demo'))
+            print('Use: python manage.py import_matches --demo')
             return
 
         if source == 'football-data':
@@ -26,15 +26,13 @@ class Command(BaseCommand):
         elif source == 'api-football':
             self.connect_api_football(league_code, limit)
         else:
-            self.stdout.write(self.style.ERROR(f'Unknown source: {source}'))
+            print(f'Unknown source: {source}')
 
     def connect_football_data(self, league_code, limit):
         api_key = os.getenv('FOOTBALL_DATA_API_KEY')
         if not api_key:
-            self.stdout.write(self.style.ERROR(
-                'Football-Data API key not found. Set FOOTBALL_DATA_API_KEY in .env\n'
-                'Get free key at: https://www.football-data.org/client/register'
-            ))
+            print('ERROR: FOOTBALL_DATA_API_KEY not found. Set it in .env file')
+            print('Get free key at: https://www.football-data.org/client/register')
             return
 
         league_mapping = {
@@ -47,7 +45,7 @@ class Command(BaseCommand):
         }
 
         league_name = league_mapping.get(league_code, 'Premier League')
-        self.stdout.write(f'Fetching {league_name}...')
+        print(f'Fetching {league_name}...')
 
         headers = {'X-Auth-Token': api_key}
         url = f'https://api.football-data.org/v4/competitions/{league_code}/matches'
@@ -58,7 +56,7 @@ class Command(BaseCommand):
             data = response.json()
 
             matches_data = data.get('matches', [])
-            self.stdout.write(f'Found {len(matches_data)} matches')
+            print(f'Found {len(matches_data)} matches')
 
             from apps.leagues.models import League
             from apps.teams.models import Team
@@ -69,6 +67,7 @@ class Command(BaseCommand):
                 defaults={'country': 'International', 'season': '2024/2025'}
             )
 
+            count = 0
             for match_data in matches_data[:limit]:
                 home_team_data = match_data.get('homeTeam', {})
                 away_team_data = match_data.get('awayTeam', {})
@@ -95,8 +94,8 @@ class Command(BaseCommand):
                 match_date = timezone.datetime.fromisoformat(utc_date.replace('Z', '+00:00'))
 
                 score = match_data.get('score', {})
-                home_half = score.get('halfTime', {}).get('home') or 0
-                away_half = score.get('halfTime', {}).get('away') or 0
+                full_home = score.get('fullTime', {}).get('home') or 0
+                full_away = score.get('fullTime', {}).get('away') or 0
 
                 status = match_data.get('status', 'SCHEDULED')
                 if status == 'FINISHED':
@@ -112,29 +111,27 @@ class Command(BaseCommand):
                     away_team=away_team,
                     date=match_date,
                     defaults={
-                        'home_score': home_half + (score.get('fullTime', {}).get('home') or 0) - home_half,
-                        'away_score': away_half + (score.get('fullTime', {}).get('away') or 0) - away_half,
+                        'home_score': full_home,
+                        'away_score': full_away,
                         'status': status,
                         'stadium': home_team_data.get('venue', 'Unknown')
                     }
                 )
 
                 if created:
-                    self.stdout.write(f'  + {home_team.name} vs {away_team.name}')
+                    print(f'+ {home_team.name} {full_home}-{full_away} {away_team.name}')
+                    count += 1
 
-            self.stdout.write(self.style.SUCCESS(f'\n✅ Imported {len(matches_data)} matches from {league_name}'))
+            print(f'[OK] Imported {count} matches from {league_name}')
+            print(f'Total matches in database: {Match.objects.count()}')
 
         except requests.exceptions.RequestException as e:
-            self.stdout.write(self.style.ERROR(f'API Error: {e}'))
+            print(f'API Error: {e}')
 
     def connect_api_football(self, league_code, limit):
         api_key = os.getenv('API_FOOTBALL_KEY')
         if not api_key:
-            self.stdout.write(self.style.ERROR(
-                'API-Football key not found. Set API_FOOTBALL_KEY in .env\n'
-                'Get key at: https://apifootball.com/'
-            ))
+            print('API_FOOTBALL_KEY not found. Set it in .env')
             return
 
-        self.stdout.write(self.style.WARNING('API-Football integration coming soon'))
-        self.stdout.write('Currently supported: Football-Data.org')
+        print('API-Football integration coming soon')
