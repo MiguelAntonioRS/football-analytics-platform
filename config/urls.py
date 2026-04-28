@@ -29,6 +29,7 @@ urlpatterns = [
     path('trends/', TemplateView.as_view(template_name='trends.html'), name='trends'),
     path('fantasy/', TemplateView.as_view(template_name='fantasy.html'), name='fantasy'),
     path('blog/', TemplateView.as_view(template_name='blog.html'), name='blog'),
+    path('standings/', TemplateView.as_view(template_name='standings.html'), name='standings'),
 ]
 
 if settings.DEBUG:
