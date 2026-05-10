@@ -1,4 +1,4 @@
-# ⚽ Football Analytics Platform 
+# ⚽ Football Analytics Platform
  
 Plataforma profesional de análisis de fútbol con Django y Django REST Framework.
 
