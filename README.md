@@ -1,7 +1,7 @@
 # ⚽ Football Analytics Platform
 
 Plataforma profesional de análisis de fútbol con Django y Django REST Framework.
- 
+
 ## 🚀 Características Completas
  
 ### Gestión de Datos
