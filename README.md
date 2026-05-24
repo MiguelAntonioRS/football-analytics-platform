@@ -6,7 +6,7 @@ Plataforma profesional de análisis de fútbol con Django y Django REST Framewor
  
 ### Gestión de Datos
 - [x] Gestión de ligas, equipos y jugadores
-- [x] Registro de partidos y eventos
+- [x] Registro de partidos y eventos 
 - [x] Eventos avanzados (tiros y pases)
 - [x] Sistema de favoritos
 
