@@ -9,7 +9,7 @@ Plataforma profesional de análisis de fútbol con Django y Django REST Framewor
 - [x] Registro de partidos y eventos
 - [x] Eventos avanzados (tiros y pases)
 - [x] Sistema de favoritos
-  
+
 ### Análisis Estadístico
 - [x] **Expected Goals (xG)**: Modelo predictivo de probabilidades de gol
 - [x] **Redes de Pases**: Visualización de conexiones entre jugadores 
